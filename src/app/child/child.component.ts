@@ -31,31 +31,31 @@ export class ChildComponent
   @Input() title = 'before init child';
 
   constructor() {
-    console.log('# Child: constructor ', this.title);
+    // console.log('# Child: constructor ', this.title);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('# Child ngOnChanges: ', changes);
+    // console.log('# Child ngOnChanges: ', changes);
   }
   ngOnInit(): void {
-    console.log('# Child ngOnInit ', this.title);
+    // console.log('# Child ngOnInit ', this.title);
   }
   ngAfterViewChecked(): void {
-    console.log('# Child ngAfterViewChecked ', this.title);
+    // console.log('# Child ngAfterViewChecked ', this.title);
   }
   ngAfterViewInit(): void {
-    console.log('# Child ngAfterViewInit ', this.title);
+    // console.log('# Child ngAfterViewInit ', this.title);
   }
   ngAfterContentChecked(): void {
-    console.log('# Child ngAfterContentChecked ', this.title);
+    // console.log('# Child ngAfterContentChecked ', this.title);
   }
   ngAfterContentInit(): void {
-    console.log('# Child ngAfterContentInit ', this.title);
+    // console.log('# Child ngAfterContentInit ', this.title);
   }
   ngDoCheck(): void {
-    console.log('# Child ngDoCheck ', this.title);
+    // console.log('# Child ngDoCheck ', this.title);
   }
   ngOnDestroy(): void {
-    console.log('# Child ngOnDestroy ', this.title);
+    // console.log('# Child ngOnDestroy ', this.title);
   }
 }
