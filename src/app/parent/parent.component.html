@@ -1,7 +1,4 @@
 <p>parent works! {{ title }}</p>
 
-<app-child [title]="title"></app-child>
-
-<div>
-  <span *ngFor="let i of array">{{ i }}, </span>
-</div>
+<!-- <ng-content select="app-child"></ng-content> -->
+<ng-content></ng-content>

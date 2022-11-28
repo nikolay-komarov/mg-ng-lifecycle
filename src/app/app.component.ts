@@ -1,4 +1,4 @@
-import { Component, VERSION } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'my-app',
@@ -8,10 +8,4 @@ import { Component, VERSION } from '@angular/core';
 export class AppComponent {
   title = 'app';
   show = true;
-
-  array = [1, 2, 3];
-
-  modifyArray() {
-    this.array.push(5);
-  }
 }
