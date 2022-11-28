@@ -33,11 +33,18 @@ export class ParentComponent
     OnDestroy
 {
   @Input() title = 'before init parent';
-  @Input() array = [];
+
+  private _array = [];
+
+  @Input() set array(values: number[]) {
+    this._array = values;
+    console.log('## Parent: set array ', this._array);
+  }
+  get array() {
+    return this._array;
+  }
 
   private lenght = this.array.length;
-
-  destroy$ = new Subject<void>();
 
   constructor(private cdr: ChangeDetectorRef) {
     // console.log('# Parent: constructor ', this.title);
