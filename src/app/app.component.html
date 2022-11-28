@@ -1,0 +1,3 @@
+<button (click)="show = !show">toggle</button>
+<button (click)="title = 'updatetd'">modify</button>
+<app-parent *ngIf="show" [title]="title"></app-parent>
