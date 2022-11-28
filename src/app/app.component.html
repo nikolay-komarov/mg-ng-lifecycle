@@ -1,3 +1,4 @@
 <button (click)="show = !show">toggle</button>
 <button (click)="title = 'updatetd'">modify</button>
-<app-parent *ngIf="show" [title]="title"></app-parent>
+<button (click)="modifyArray()">modify array</button>
+<app-parent *ngIf="show" [title]="title" [array]="array"></app-parent>

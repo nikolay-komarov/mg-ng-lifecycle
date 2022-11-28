@@ -3,6 +3,8 @@ import {
   AfterContentInit,
   AfterViewChecked,
   AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   DoCheck,
   Input,
@@ -17,6 +19,7 @@ import { fromEvent, Subject, Subscription, takeUntil } from 'rxjs';
   selector: 'app-parent',
   templateUrl: './parent.component.html',
   styleUrls: ['./parent.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ParentComponent
   implements
@@ -30,32 +33,26 @@ export class ParentComponent
     OnDestroy
 {
   @Input() title = 'before init parent';
+  @Input() array = [];
 
-  // subscription?: Subscription;
-  // subscriptions: Subscription[] = [];
+  private lenght = this.array.length;
 
   destroy$ = new Subject<void>();
 
-  constructor() {
-    console.log('# Parent: constructor ', this.title);
+  constructor(private cdr: ChangeDetectorRef) {
+    // console.log('# Parent: constructor ', this.title);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log('# Parent ngOnChanges: ', changes);
   }
   ngOnInit(): void {
-    console.log('# Parent ngOnInit ', this.title);
+    // console.log('# Parent ngOnInit ', this.title);
 
-    // this.subscription = fromEvent(document, 'click').subscribe(() =>
-    //   console.log('### click')
-    // );
-    // this.subscriptions.push(
-    //   fromEvent(document, 'click').subscribe(() => console.log('### click'))
-    // );
-
-    fromEvent(document, 'click')
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => console.log('### click'));
+    setTimeout(() => {
+      this.title = 'foo';
+      this.cdr.markForCheck();
+    }, 1000);
   }
   ngAfterViewChecked(): void {
     // console.log('# Parent ngAfterViewChecked ', this.title);
@@ -70,15 +67,15 @@ export class ParentComponent
     // console.log('# Parent ngAfterContentInit ', this.title);
   }
   ngDoCheck(): void {
-    // console.log('# Parent ngDoCheck ', this.title);
+    console.log('# Parent ngDoCheck ', this.title);
+
+    if (this.lenght !== this.array.length) {
+      console.log('has changes');
+      this.cdr.markForCheck();
+      this.lenght === this.array.length;
+    }
   }
   ngOnDestroy(): void {
-    console.log('# Parent ngOnDestroy ', this.title);
-
-    // this.subscription?.unsubscribe();
-    // this.subscriptions.forEach((s) => s?.unsubscribe());
-
-    this.destroy$.next();
-    this.destroy$.complete();
+    // console.log('# Parent ngOnDestroy ', this.title);
   }
 }

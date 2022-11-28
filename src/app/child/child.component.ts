@@ -35,7 +35,7 @@ export class ChildComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log('# Child ngOnChanges: ', changes);
+    console.log('# Child ngOnChanges: ', changes);
   }
   ngOnInit(): void {
     // console.log('# Child ngOnInit ', this.title);
@@ -53,7 +53,7 @@ export class ChildComponent
     // console.log('# Child ngAfterContentInit ', this.title);
   }
   ngDoCheck(): void {
-    // console.log('# Child ngDoCheck ', this.title);
+    console.log('# Child ngDoCheck ', this.title);
   }
   ngOnDestroy(): void {
     // console.log('# Child ngOnDestroy ', this.title);
