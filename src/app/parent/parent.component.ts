@@ -13,6 +13,7 @@ import {
   OnInit,
   QueryList,
   SimpleChanges,
+  TemplateRef,
 } from '@angular/core';
 import { ChildComponent } from '../child/child.component';
 
@@ -38,6 +39,9 @@ export class ParentComponent
   @ContentChildren('ref', { read: ChildComponent })
   appChildren?: QueryList<ChildComponent>;
 
+  @ContentChildren('foo,bar,baz', { read: TemplateRef })
+  templates!: QueryList<TemplateRef<{ $implicit: string }>>;
+
   constructor() {
     console.log('# Parent: constructor ', this.title, this.appChild);
   }
@@ -54,8 +58,10 @@ export class ParentComponent
   ngAfterViewInit(): void {
     console.log('# Parent ngAfterViewInit ', this.title, this.appChild);
 
-    this.appChild.sayHi();
-    this.appChild.title = 'FOO';
+    console.log('templates', this.templates);
+
+    // this.appChild?.sayHi();
+    // this.appChild.title = 'FOO';
   }
   ngAfterContentChecked(): void {
     console.log('# Parent ngAfterContentChecked ', this.title, this.appChild);
