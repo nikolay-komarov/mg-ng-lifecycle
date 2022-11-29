@@ -3,17 +3,18 @@ import {
   AfterContentInit,
   AfterViewChecked,
   AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChild,
-  ContentChildren,
   DoCheck,
+  ElementRef,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
-  QueryList,
   SimpleChanges,
-  TemplateRef,
+  ViewChild,
 } from '@angular/core';
 import { ChildComponent } from '../child/child.component';
 
@@ -21,6 +22,7 @@ import { ChildComponent } from '../child/child.component';
   selector: 'app-parent',
   templateUrl: './parent.component.html',
   styleUrls: ['./parent.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ParentComponent
   implements
@@ -35,44 +37,46 @@ export class ParentComponent
 {
   @Input() title = 'before init parent';
 
-  @ContentChild('ref', { read: ChildComponent }) appChild?: ChildComponent;
-  @ContentChildren('ref', { read: ChildComponent })
-  appChildren?: QueryList<ChildComponent>;
+  @ViewChild('divContainer')
+  divContainer?: ElementRef<HTMLDivElement>;
 
-  @ContentChildren('foo,bar,baz', { read: TemplateRef })
-  templates!: QueryList<TemplateRef<{ $implicit: string }>>;
+  @ViewChild(ChildComponent) appChild?: ChildComponent;
 
-  constructor() {
-    console.log('# Parent: constructor ', this.title, this.appChild);
+  constructor(private cdr: ChangeDetectorRef) {
+    console.log('# Parent: constructor ', this.title, this.divContainer);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('# Parent ngOnChanges: ', changes, this.appChild);
+    console.log('# Parent ngOnChanges: ', changes);
   }
   ngOnInit(): void {
-    console.log('# Parent ngOnInit ', this.title, this.appChild);
+    console.log('# Parent ngOnInit ', this.title, this.divContainer);
   }
   ngAfterViewChecked(): void {
-    console.log('# Parent ngAfterViewChecked ', this.title, this.appChild);
+    console.log('# Parent ngAfterViewChecked ', this.title, this.divContainer);
   }
   ngAfterViewInit(): void {
-    console.log('# Parent ngAfterViewInit ', this.title, this.appChild);
+    console.log('# Parent ngAfterViewInit ', this.title, this.divContainer);
 
-    console.log('templates', this.templates);
+    this.appChild.title = 'FOOO';
+    this.cdr.detectChanges();
 
-    // this.appChild?.sayHi();
-    // this.appChild.title = 'FOO';
+    // Promise.resolve().then(() => (this.appChild.title = 'FOOO'));
   }
   ngAfterContentChecked(): void {
-    console.log('# Parent ngAfterContentChecked ', this.title, this.appChild);
+    console.log(
+      '# Parent ngAfterContentChecked ',
+      this.title,
+      this.divContainer
+    );
   }
   ngAfterContentInit(): void {
-    console.log('# Parent ngAfterContentInit ', this.title, this.appChild);
+    console.log('# Parent ngAfterContentInit ', this.title, this.divContainer);
   }
   ngDoCheck(): void {
-    console.log('# Parent ngDoCheck ', this.title, this.appChild);
+    console.log('# Parent ngDoCheck ', this.title, this.divContainer);
   }
   ngOnDestroy(): void {
-    console.log('# Parent ngOnDestroy ', this.title, this.appChild);
+    console.log('# Parent ngOnDestroy ', this.title, this.divContainer);
   }
 }

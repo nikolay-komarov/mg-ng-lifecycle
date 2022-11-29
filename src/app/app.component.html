@@ -1,20 +1,4 @@
 <button (click)="show = !show">toggle</button>
 <button (click)="title = 'updatetd'">modify</button>
 
-<app-parent *ngIf="show" [title]="title">
-  <!-- <app-child #ref [title]="title"></app-child>
-  <app-child #ref [title]="title"></app-child>
-  <app-child #ref [title]="title"></app-child>
-  <p #ref>test</p> -->
-
-  <p #foo>Skip</p>
-  <ng-template #bar let-item
-    ><p>1. {{ item }}</p></ng-template
-  >
-  <ng-template #bar let-item
-    ><b>2. {{ item }}</b></ng-template
-  >
-  <ng-template #baz let-item
-    ><i>3. {{ item }}</i></ng-template
-  >
-</app-parent>
+<app-parent *ngIf="show" [title]="title"></app-parent>
